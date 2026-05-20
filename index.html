@@ -907,9 +907,18 @@
 
     /* ─ RESPONSIVE ───────────────────────────────────────── */
     @media (max-width: 960px) {
+      :root { --px: 20px; }
+      body { overflow-x: hidden; }
+      .btn { min-height: 46px; justify-content: center; }
+      .nav { height: 56px; }
+      .nav-inner { gap: 12px; }
+      .nav-logo { min-width: 0; gap: 8px; font-size: clamp(16px, 4.6vw, 20px); }
+      .nav-logo-img { width: 38px; height: 38px; border-radius: 9px; flex: 0 0 auto; }
+      .nav-logo-text { min-width: 0; line-height: 1; }
       .hero { flex-direction: column; min-height: auto; }
       .hero-left { flex: none; padding: 52px var(--px); }
-      .hero-right { height: 56vw; flex: none; border-radius: 0; }
+      .hero-right { height: clamp(260px, 64vw, 460px); flex: none; border-radius: 0; }
+      .hero-right img { object-position: center 34%; }
       .hero-right::before { left: 18px; bottom: 18px; font-size: 9px; padding: 10px 14px; }
       .hero-left::before { width: 360px; right: -160px; top: 40px; }
       .features { border-radius: 36px 36px 0 0; margin-top: -32px; padding-top: 72px; }
@@ -941,17 +950,71 @@
       .nav-links { display: none; }
     }
     @media (max-width: 600px) {
-      .hero-h1 { font-size: 56px; }
-      .hero-sub { padding: 16px; }
+      :root { --px: 16px; }
+      .nav { height: 54px; }
+      .nav-logo { font-size: 17px; }
+      .nav-logo-img { width: 34px; height: 34px; border-radius: 8px; }
+      .marquee { height: 36px; }
+      .mq-track span { font-size: 9px; padding: 0 10px; letter-spacing: .16em; }
+      .hero-left { padding: 36px var(--px) 34px; }
+      .hero-tag { max-width: 100%; margin-bottom: 22px; font-size: 9px; letter-spacing: .1em; white-space: normal; line-height: 1.25; }
+      .hero-h1 { font-size: clamp(42px, 13vw, 52px); line-height: .92; margin-bottom: 24px; }
+      .hero-h1 em { font-size: .52em; line-height: 1.18; margin-top: 10px; }
+      .hero-sub { padding: 15px 16px; margin-bottom: 24px; font-size: 15px; line-height: 1.55; border-radius: 18px; box-shadow: 6px 6px 0 rgba(184,62,34,.13); }
+      .hero-btns { flex-direction: column; align-items: stretch; }
+      .hero-right { height: 76vw; min-height: 280px; max-height: 360px; }
       .hero-illo { opacity: .2 !important; }
+      .stats { padding: 34px 0 58px; }
+      .stat { padding: 16px 0; }
+      .stat-n { font-size: 46px; }
+      .stat-l { max-width: 260px; margin-left: auto; margin-right: auto; line-height: 1.4; }
+      .features { padding-bottom: 76px; }
       .features { border-radius: 24px 24px 0 0; }
+      .features-top,
+      .gallery-hd,
+      .polars-hd { gap: 24px; }
+      .sec-h { font-size: clamp(34px, 10vw, 42px); }
+      .sec-body { font-size: 15px; line-height: 1.65; }
       .sessions { border-radius: 24px 24px 0 0; }
       .feat-grid { grid-template-columns: 1fr; }
-      .feat-block { grid-column: span 1 !important; }
+      .feat-block { grid-column: span 1 !important; min-height: auto; padding: 24px 20px !important; }
+      .polars { padding: 56px 0; }
+      .polar-track { gap: 12px; padding-left: var(--px); padding-right: var(--px); }
+      .polar { width: 154px; padding: 8px 8px 26px; }
+      .polar-img { min-height: 138px; }
+      .polar-cap { font-size: 12px; }
+      .sessions { padding: 68px 0 76px; }
+      .session-panel { padding: 28px 18px 22px; gap: 24px; border-radius: 22px; }
+      .session-panel::after { width: 54px; height: 54px; right: 16px; top: 24px; opacity: .7; }
+      #both { padding: 30px 18px 24px; }
+      .session-illo { width: 42px; height: 42px; margin-bottom: 10px; }
+      .session-h { font-size: clamp(42px, 13vw, 56px); margin-bottom: 12px; }
+      .session-dates { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .sd-val { font-size: 17px; }
+      .session-desc { font-size: 15px; line-height: 1.6; }
+      .price-row { align-items: flex-start; gap: 12px; }
+      .price-tier { font-size: 14px; }
+      .price-note { font-size: 12px; line-height: 1.35; }
+      .price-amt { font-size: 23px; white-space: nowrap; }
+      .session-img { border-radius: 14px; }
+      .perk { padding: 12px 13px; font-size: 14px; gap: 10px; }
+      .gallery { padding: 76px 0 64px; }
+      .gallery-roll { font-size: clamp(22px, 7vw, 28px); }
+      .gallery-scroll-outer { margin-top: 32px; padding: 0 var(--px); }
+      .gallery-scroll-track { gap: 12px; padding: 0 0 16px; }
+      .gs { width: min(78vw, 288px); height: 318px; border-radius: 18px; }
+      .gs img { border-radius: 18px; }
+      .social-feed { padding: 64px 0; }
+      .trips, .faq, .register, .location { padding: 68px 0; }
+      .float-cta { left: 14px; right: 14px; bottom: 14px; }
+      .float-cta.btn { width: auto; text-align: center; box-shadow: 0 12px 24px rgba(28,28,46,.18); }
+    }
+    @media (max-width: 380px) {
+      .nav-logo { font-size: 15px; }
+      .hero-h1 { font-size: 40px; }
       .session-dates { grid-template-columns: 1fr; }
-      .price-row { align-items: flex-start; gap: 14px; }
-      .gs { width: 260px; height: 300px; }
-      .float-cta { bottom: 14px; right: 14px; }
+      .price-row { flex-direction: column; align-items: flex-start; }
+      .price-amt { align-self: flex-start; }
     }
 
     /* ─ ANIMATIONS (respects user motion preference) ──────── */

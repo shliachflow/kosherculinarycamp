@@ -836,17 +836,24 @@
     .polars-q-line strong { color: var(--yellow); font-style: normal; }
     .polar-scroll-outer {
       position: relative;
+      overflow: hidden;
+      padding-bottom: 4px;
+    }
+    .polar-track {
+      display: flex;
+      gap: 18px;
+      cursor: grab;
+      user-select: none;
+      padding: 10px var(--px) 24px;
+      width: 100%;
       overflow-x: auto;
-      overflow-y: visible;
       overscroll-behavior-x: contain;
       scroll-behavior: smooth;
       -webkit-overflow-scrolling: touch;
       touch-action: pan-x;
       scrollbar-width: none;
-      padding-bottom: 4px;
     }
-    .polar-scroll-outer::-webkit-scrollbar { display: none; }
-    .polar-track { display: flex; gap: 18px; cursor: grab; user-select: none; padding: 10px var(--px) 24px; width: max-content; min-width: 100%; }
+    .polar-track::-webkit-scrollbar { display: none; }
     .polar-track:active { cursor: grabbing; }
     .polar { flex-shrink: 0; width: 186px; background: var(--white); padding: 10px 10px 30px; box-shadow: 0 4px 20px rgba(0,0,0,.28); transform: rotate(var(--r,0deg)); border-radius: 4px; }
     .polar:nth-child(odd)  { --r: -1.8deg; }
@@ -1180,8 +1187,8 @@
       .hero-fact strong { font-size: 21px; }
       .hero-btns { flex-direction: column; align-items: stretch; }
       .hero-right {
-        min-height: 100vh;
-        min-height: 100svh;
+        min-height: 92vh;
+        min-height: 92svh;
         border-radius: 0 0 28px 28px;
       }
       .hero-action-img { object-position: 60% center; }
@@ -1593,7 +1600,7 @@
       <div class="polar"><img class="polar-img" src="uploads/camp-smiling-table.jpg" alt="Camper smiling at an activity table"><div class="polar-cap">Smiles at the table</div></div>
       <div class="polar"><img class="polar-img" src="uploads/camp-party-table.jpg" alt="Campers seated at a colorful camp table"><div class="polar-cap">Big camp energy</div></div>
     </div>
-    <button class="polar-arrow polar-arrow-l hidden" id="polarLeft" type="button" aria-label="Previous camp memory">&#8592;</button>
+    <button class="polar-arrow polar-arrow-l" id="polarLeft" type="button" aria-label="Previous camp memory">&#8592;</button>
     <button class="polar-arrow polar-arrow-r" id="polarRight" type="button" aria-label="Next camp memory">&#8594;</button>
   </div>
 </section>
@@ -2141,19 +2148,18 @@
     var tr = document.getElementById('polarTrack');
     if (!tr) return;
     var drag=false, sx, sl;
-    tr.addEventListener('mousedown', function(e){drag=true;tr.style.cursor='grabbing';sx=e.pageX-tr.offsetLeft;sl=tr.parentElement.scrollLeft;});
+    tr.addEventListener('mousedown', function(e){drag=true;tr.style.cursor='grabbing';sx=e.pageX-tr.offsetLeft;sl=tr.scrollLeft;});
     window.addEventListener('mouseup', function(){drag=false;tr.style.cursor='grab';});
-    tr.addEventListener('mousemove', function(e){if(!drag)return;e.preventDefault();tr.parentElement.scrollLeft=sl-(e.pageX-tr.offsetLeft-sx)*1.2;});
+    tr.addEventListener('mousemove', function(e){if(!drag)return;e.preventDefault();tr.scrollLeft=sl-(e.pageX-tr.offsetLeft-sx)*1.2;});
   }
   initPolarDrag();
 
   // ── POLAROID ARROWS ───────────────────────────────────────────
   (function() {
-    var rail = document.getElementById('polarScroll');
     var track = document.getElementById('polarTrack');
     var btnL = document.getElementById('polarLeft');
     var btnR = document.getElementById('polarRight');
-    if (!rail || !track || !btnL || !btnR) return;
+    if (!track || !btnL || !btnR) return;
 
     function stepSize() {
       var card = track.querySelector('.polar');
@@ -2162,21 +2168,14 @@
       return card.getBoundingClientRect().width + gap;
     }
 
-    function updateArrows() {
-      btnL.classList.toggle('hidden', rail.scrollLeft < 10);
-      btnR.classList.toggle('hidden',
-        rail.scrollLeft >= rail.scrollWidth - rail.clientWidth - 10);
-    }
-
-    btnL.addEventListener('click', function() {
-      rail.scrollBy({ left: -stepSize(), behavior: 'smooth' });
+    btnL.addEventListener('click', function(e) {
+      e.preventDefault();
+      track.scrollBy({ left: -stepSize(), behavior: 'smooth' });
     });
-    btnR.addEventListener('click', function() {
-      rail.scrollBy({ left: stepSize(), behavior: 'smooth' });
+    btnR.addEventListener('click', function(e) {
+      e.preventDefault();
+      track.scrollBy({ left: stepSize(), behavior: 'smooth' });
     });
-    rail.addEventListener('scroll', updateArrows, { passive: true });
-    window.addEventListener('resize', updateArrows);
-    updateArrows();
   })();
 
   // ── GALLERY — horizontal scroll arrows & drag ─────────────

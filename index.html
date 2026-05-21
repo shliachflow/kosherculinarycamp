@@ -207,6 +207,29 @@
       border-radius: 100px;
     }
     .nav-reg:hover { background: var(--yellow); opacity: 1; }
+    .nav-menu-btn {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.14);
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 5px;
+      flex: 0 0 auto;
+    }
+    .nav-menu-btn span {
+      width: 18px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 999px;
+      transition: transform 180ms ease, opacity 180ms ease;
+    }
+    .nav.nav-open .nav-menu-btn span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav.nav-open .nav-menu-btn span:nth-child(2) { opacity: 0; }
+    .nav.nav-open .nav-menu-btn span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
     /* ─ MARQUEE ──────────────────────────────────────────── */
     .marquee { background: var(--red); height: 44px; overflow: hidden; display: flex; align-items: center; }
@@ -699,9 +722,11 @@
       display: flex;
       gap: 12px;
       overflow-x: auto;
+      overscroll-behavior-x: contain;
       scroll-snap-type: x mandatory;
       scroll-behavior: smooth;
       -webkit-overflow-scrolling: touch;
+      touch-action: pan-x;
       scrollbar-width: none;
       padding: 0 var(--px) 24px;
       cursor: grab;
@@ -809,7 +834,19 @@
     .polars-quote { display: flex; flex-direction: column; gap: 20px; }
     .polars-q-line { font-family: var(--font-d); font-size: clamp(18px,2.2vw,26px); font-weight: 700; font-style: italic; color: rgba(255,255,255,.68); line-height: 1.25; letter-spacing: -.01em; }
     .polars-q-line strong { color: var(--yellow); font-style: normal; }
-    .polar-track { display: flex; gap: 18px; cursor: grab; user-select: none; padding: 10px var(--px) 20px; width: max-content; min-width: 100%; }
+    .polar-scroll-outer {
+      position: relative;
+      overflow-x: auto;
+      overflow-y: visible;
+      overscroll-behavior-x: contain;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      touch-action: pan-x;
+      scrollbar-width: none;
+      padding-bottom: 4px;
+    }
+    .polar-scroll-outer::-webkit-scrollbar { display: none; }
+    .polar-track { display: flex; gap: 18px; cursor: grab; user-select: none; padding: 10px var(--px) 24px; width: max-content; min-width: 100%; }
     .polar-track:active { cursor: grabbing; }
     .polar { flex-shrink: 0; width: 186px; background: var(--white); padding: 10px 10px 30px; box-shadow: 0 4px 20px rgba(0,0,0,.28); transform: rotate(var(--r,0deg)); border-radius: 4px; }
     .polar:nth-child(odd)  { --r: -1.8deg; }
@@ -817,6 +854,28 @@
     .polar:nth-child(3n)   { --r: -.7deg; }
     .polar-img { width: 100%; aspect-ratio: 1; object-fit: cover; background: var(--cream-dark); min-height: 166px; }
     .polar-cap { font-family: var(--font-d); font-size: 13px; font-style: italic; color: var(--muted); text-align: center; margin-top: 8px; line-height: 1.3; }
+    .polar-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--yellow);
+      color: var(--navy);
+      font-size: 19px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,.26);
+      z-index: 5;
+      transition: opacity 150ms ease, transform 150ms ease;
+    }
+    .polar-arrow:hover { transform: translateY(-50%) scale(1.04); }
+    .polar-arrow-l { left: 16px; }
+    .polar-arrow-r { right: 16px; }
+    .polar-arrow.hidden { opacity: 0; pointer-events: none; }
 
     /* ─ TRIPS CALLOUT ────────────────────────────────────── */
     .trips { background: var(--red); padding: 100px 0; position: relative; overflow: hidden; }
@@ -1030,10 +1089,45 @@
       body { overflow-x: hidden; }
       .btn { min-height: 46px; justify-content: center; }
       .nav { height: 56px; }
-      .nav-inner { gap: 12px; }
+      .nav-inner { gap: 12px; position: relative; }
       .nav-logo { min-width: 0; gap: 8px; font-size: clamp(16px, 4.6vw, 20px); }
       .nav-logo-img { width: 38px; height: 38px; border-radius: 9px; flex: 0 0 auto; }
       .nav-logo-text { min-width: 0; line-height: 1; }
+      .nav-menu-btn { display: inline-flex; }
+      .nav-links {
+        position: absolute;
+        top: calc(100% + 10px);
+        left: var(--px);
+        right: var(--px);
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 12px;
+        background: var(--navy);
+        border: 1px solid rgba(255,255,255,.14);
+        border-radius: 18px;
+        box-shadow: 0 18px 40px rgba(0,0,0,.28);
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden;
+        transform: translateY(-8px);
+        transition: opacity 160ms ease, transform 160ms ease, visibility 160ms ease;
+      }
+      .nav.nav-open .nav-links {
+        opacity: 1;
+        pointer-events: auto;
+        visibility: visible;
+        transform: translateY(0);
+      }
+      .nav-links a {
+        display: block;
+        width: 100%;
+        padding: 13px 14px;
+        border-radius: 12px;
+        background: rgba(255,255,255,.06);
+        color: var(--white);
+      }
+      .nav-reg { text-align: center; background: var(--lime); color: var(--navy) !important; }
       .hero { padding: 0; }
       .hero-left { max-width: 760px; padding: 48px var(--px) 38px; }
       .hero-right { width: 100%; min-height: 520px; margin: 0; border-radius: 36px 36px 0 0; }
@@ -1054,7 +1148,9 @@
       .gallery-hd { grid-template-columns: 1fr; gap: 32px; }
       .social-feed-grid { grid-template-columns: 1fr; gap: 32px; }
       .polars-hd { grid-template-columns: 1fr; gap: 32px; }
-      .gallery-arrow { display: none; }
+      .gallery-arrow { width: 42px; height: 42px; top: 50%; font-size: 18px; }
+      .gallery-arrow-l { left: 10px; }
+      .gallery-arrow-r { right: 10px; }
       .gs { width: 280px; height: 340px; }
       .cd-inner { flex-direction: column; text-align: center; }
       .stats-row { grid-template-columns: 1fr; }
@@ -1063,7 +1159,6 @@
       .stat:last-child { border-bottom: none; }
       .stats { padding-bottom: 64px; }
       .stat-n { font-size: clamp(42px, 10vw, 64px); }
-      .nav-links { display: none; }
     }
     @media (max-width: 600px) {
       :root { --px: 16px; }
@@ -1074,6 +1169,7 @@
       .mq-track span { font-size: 9px; padding: 0 10px; letter-spacing: .16em; }
       .hero { padding: 0; gap: 0; }
       .hero-left { padding: 34px var(--px) 30px; }
+      .hero-right { order: -1; }
       .hero-tag { max-width: 100%; margin-bottom: 22px; font-size: 9px; letter-spacing: .1em; white-space: normal; line-height: 1.25; }
       .hero-h1 { font-size: clamp(62px, 19vw, 84px); line-height: .78; margin-bottom: 18px; }
       .hero-h1 em { font-size: .56em; line-height: .88; margin-top: 6px; }
@@ -1082,7 +1178,7 @@
       .hero-fact { padding: 10px; font-size: 10px; letter-spacing: .06em; }
       .hero-fact strong { font-size: 21px; }
       .hero-btns { flex-direction: column; align-items: stretch; }
-      .hero-right { min-height: 430px; border-radius: 28px 28px 0 0; }
+      .hero-right { min-height: 430px; border-radius: 0 0 28px 28px; }
       .hero-action-img { object-position: 60% center; }
       .hero-right::after { width: 260px; right: -100px; top: -90px; }
       .hero-action-title { top: 22px; left: 18px; max-width: 220px; font-size: clamp(42px, 12vw, 56px); }
@@ -1110,7 +1206,7 @@
       .polar-img { min-height: 138px; }
       .polar-cap { font-size: 12px; }
       .sessions { padding: 68px 0 76px; }
-      .session-panel { padding: 28px 18px 22px; gap: 24px; border-radius: 22px; }
+      .session-panel { padding: 28px 18px 22px; gap: 24px; border-radius: 22px; overflow: visible; width: 100%; max-width: 100%; }
       .session-panel::after { width: 54px; height: 54px; right: 16px; top: 24px; opacity: .7; }
       #both { padding: 30px 18px 24px; }
       .session-illo { width: 42px; height: 42px; margin-bottom: 10px; }
@@ -1143,6 +1239,14 @@
       .session-dates { grid-template-columns: 1fr; }
       .price-row { flex-direction: column; align-items: flex-start; }
       .price-amt { align-self: flex-start; }
+    }
+    @media (max-width: 960px) {
+      #s1, #s2, #both,
+      .session-panel,
+      .session-panel.sp-in {
+        opacity: 1;
+        transform: none !important;
+      }
     }
 
     /* ─ ANIMATIONS (respects user motion preference) ──────── */
@@ -1255,6 +1359,16 @@
 
     }
 
+    @media (max-width: 960px) {
+      .nav .nav-links a,
+      .nav .nav-links a:not(.nav-reg) {
+        display: block;
+      }
+      .nav .nav-links a:not(.nav-reg)::after {
+        display: none;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -1267,9 +1381,16 @@
       <img class="nav-logo-img" src="uploads/kosher-culinary-camp-logo-nav.jpg" alt="Kosher Culinary Camp logo">
       <span class="nav-logo-text"><em>Kosher</em> Culinary Camp</span>
     </div>
-    <div class="nav-links">
+    <button class="nav-menu-btn" id="navMenuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
       <a href="#about">About</a>
+      <a href="#gallery">Photos</a>
       <a href="#sessions">Sessions</a>
+      <a href="#location">Location</a>
       <a href="#faq">FAQ</a>
       <a href="register.html" class="tally-link nav-reg">Register Now</a>
     </div>
@@ -1453,7 +1574,7 @@
       </div>
     </div>
   </div>
-  <div style="overflow:hidden;">
+  <div class="polar-scroll-outer" id="polarScroll">
     <div class="polar-track" id="polarTrack">
       <div class="polar"><img class="polar-img" src="uploads/session-cooking.jpg" alt="Campers gathered around a hands-on cooking activity table"><div class="polar-cap">Around the camp table</div></div>
       <div class="polar"><img class="polar-img" src="uploads/gallery-02.jpg" alt="Camper smiling at camp in a colorful camp shirt"><div class="polar-cap">Proud camp smiles</div></div>
@@ -1464,6 +1585,8 @@
       <div class="polar"><img class="polar-img" src="uploads/camp-smiling-table.jpg" alt="Camper smiling at an activity table"><div class="polar-cap">Smiles at the table</div></div>
       <div class="polar"><img class="polar-img" src="uploads/camp-party-table.jpg" alt="Campers seated at a colorful camp table"><div class="polar-cap">Big camp energy</div></div>
     </div>
+    <button class="polar-arrow polar-arrow-l hidden" id="polarLeft" type="button" aria-label="Previous camp memory">&#8592;</button>
+    <button class="polar-arrow polar-arrow-r" id="polarRight" type="button" aria-label="Next camp memory">&#8594;</button>
   </div>
 </section>
 
@@ -2016,6 +2139,38 @@
   }
   initPolarDrag();
 
+  // ── POLAROID ARROWS ───────────────────────────────────────────
+  (function() {
+    var rail = document.getElementById('polarScroll');
+    var track = document.getElementById('polarTrack');
+    var btnL = document.getElementById('polarLeft');
+    var btnR = document.getElementById('polarRight');
+    if (!rail || !track || !btnL || !btnR) return;
+
+    function stepSize() {
+      var card = track.querySelector('.polar');
+      if (!card) return 220;
+      var gap = parseFloat(getComputedStyle(track).gap) || 0;
+      return card.getBoundingClientRect().width + gap;
+    }
+
+    function updateArrows() {
+      btnL.classList.toggle('hidden', rail.scrollLeft < 10);
+      btnR.classList.toggle('hidden',
+        rail.scrollLeft >= rail.scrollWidth - rail.clientWidth - 10);
+    }
+
+    btnL.addEventListener('click', function() {
+      rail.scrollBy({ left: -stepSize(), behavior: 'smooth' });
+    });
+    btnR.addEventListener('click', function() {
+      rail.scrollBy({ left: stepSize(), behavior: 'smooth' });
+    });
+    rail.addEventListener('scroll', updateArrows, { passive: true });
+    window.addEventListener('resize', updateArrows);
+    updateArrows();
+  })();
+
   // ── GALLERY — horizontal scroll arrows & drag ─────────────
   (function() {
     var track = document.getElementById('galleryTrack');
@@ -2038,6 +2193,7 @@
       track.scrollBy({ left: itemW, behavior: 'smooth' });
     });
     track.addEventListener('scroll', updateArrows, { passive: true });
+    window.addEventListener('resize', updateArrows);
     updateArrows();
 
     // Mouse drag scroll (independent from polaroid drag)
@@ -2060,6 +2216,33 @@
     window.addEventListener('scroll', function() {
       nav.classList.toggle('scrolled', window.scrollY > 80);
     }, { passive: true });
+  })();
+
+  // ── MOBILE NAV MENU ───────────────────────────────────────────
+  (function() {
+    var nav = document.querySelector('.nav');
+    var btn = document.getElementById('navMenuBtn');
+    var links = document.getElementById('navLinks');
+    if (!nav || !btn || !links) return;
+
+    function setOpen(open) {
+      nav.classList.toggle('nav-open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    }
+
+    btn.addEventListener('click', function() {
+      setOpen(!nav.classList.contains('nav-open'));
+    });
+    links.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', function() { setOpen(false); });
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') setOpen(false);
+    });
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 960) setOpen(false);
+    });
   })();
 
   // ── SCROLL ANIMATIONS (only if user hasn't requested reduced motion) ──

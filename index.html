@@ -219,10 +219,10 @@
     .hero {
       min-height: calc(100vh - 60px - 44px);
       display: grid;
-      grid-template-columns: minmax(0, 1.02fr) minmax(320px, .98fr);
-      gap: clamp(28px, 4vw, 58px);
-      align-items: center;
-      padding: clamp(42px, 5vw, 76px) var(--px);
+      grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
+      gap: 0;
+      align-items: stretch;
+      padding: 0;
       background-color: #FFF2D6;
       background-image:
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='gr'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.74' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23gr)' opacity='0.05'/%3E%3C/svg%3E"),
@@ -237,9 +237,8 @@
     .hero::before {
       content: '';
       position: absolute;
-      inset: 18px;
+      inset: 0;
       border: 3px solid rgba(28,28,46,.12);
-      border-radius: 26px;
       pointer-events: none;
     }
 
@@ -247,6 +246,8 @@
       max-width: 680px;
       position: relative;
       z-index: 1;
+      align-self: center;
+      padding: clamp(42px, 6vw, 82px) var(--px) clamp(42px, 6vw, 82px) max(var(--px), calc((100vw - var(--max-w)) / 2 + 48px));
     }
     .hero-left::before,
     .hero-left::after {
@@ -322,122 +323,107 @@
     .hero-right {
       position: relative;
       z-index: 1;
-      min-height: 610px;
-    }
-    .hero-banner {
-      position: relative;
-      min-height: 610px;
-      border: 8px solid var(--navy);
-      border-radius: 22px;
+      min-height: calc(100vh - 60px - 44px);
       overflow: hidden;
-      background:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23paper)' opacity='.08'/%3E%3C/svg%3E"),
-        radial-gradient(circle at 88% 10%, rgba(245,200,66,.75) 0 112px, transparent 114px),
-        linear-gradient(145deg, #FFF8E8 0%, #FFF0CF 58%, #FFD046 100%);
-      box-shadow: 16px 16px 0 rgba(214,75,42,.24), 0 28px 60px rgba(28,28,46,.26);
-      transform: rotate(1.3deg);
-    }
-    .hero-banner-logo {
-      position: absolute;
-      top: 24px;
-      left: 24px;
-      width: 96px;
-      height: 96px;
-      border-radius: 8px;
-      object-fit: cover;
-      box-shadow: 0 10px 24px rgba(28,28,46,.18);
-    }
-    .hero-banner-copy {
-      position: absolute;
-      left: 28px;
-      top: 136px;
-      right: 26px;
-      z-index: 1;
-    }
-    .hero-banner-kicker {
-      display: inline-block;
-      font-size: 13px;
-      font-weight: 900;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: var(--white);
       background: var(--navy);
-      padding: 8px 12px;
-      border-radius: 999px;
-      transform: rotate(-2deg);
+      border-radius: 0 0 0 72px;
     }
-    .hero-banner-title {
+    .hero-action-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transform: scale(1.03);
+    }
+    .hero-right::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(90deg, rgba(28,28,46,.72) 0%, rgba(28,28,46,.16) 35%, rgba(28,28,46,.05) 70%),
+        linear-gradient(180deg, rgba(28,28,46,.05) 42%, rgba(28,28,46,.58) 100%);
+      pointer-events: none;
+    }
+    .hero-right::after {
+      content: '';
+      position: absolute;
+      z-index: 2;
+      right: -70px;
+      top: -70px;
+      width: min(45vw, 430px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: var(--yellow);
+      opacity: .88;
+      mix-blend-mode: multiply;
+      pointer-events: none;
+    }
+    .hero-action-title {
+      position: absolute;
+      z-index: 3;
+      right: clamp(16px, 4vw, 54px);
+      top: clamp(24px, 6vw, 72px);
+      max-width: 330px;
       font-family: var(--font-poster);
-      font-size: clamp(76px, 7.2vw, 118px);
-      font-weight: 400;
-      line-height: .78;
+      font-size: clamp(52px, 5.3vw, 86px);
+      line-height: .82;
       letter-spacing: .02em;
       text-transform: uppercase;
-      color: var(--red);
-      margin-top: 20px;
-      text-shadow: 4px 4px 0 rgba(245,200,66,.65);
+      color: var(--white);
+      text-shadow: 4px 4px 0 var(--red), 8px 8px 0 rgba(28,28,46,.28);
+      transform: rotate(2deg);
     }
-    .hero-banner-title span { display: block; color: var(--navy); font-size: .68em; }
-    .hero-note {
+    .hero-action-title span { color: var(--yellow); display: block; }
+    .hero-action-note {
       position: absolute;
-      left: 28px;
-      bottom: 34px;
-      width: min(330px, calc(100% - 56px));
+      z-index: 3;
+      left: clamp(16px, 4vw, 48px);
+      bottom: clamp(24px, 5vw, 64px);
+      width: min(360px, calc(100% - 40px));
       background: #FFF8E8;
-      border: 2px solid rgba(28,28,46,.16);
-      box-shadow: 8px 8px 0 rgba(28,28,46,.1);
-      border-radius: 6px;
-      padding: 18px;
-      transform: rotate(-2.2deg);
-      z-index: 2;
-    }
-    .hero-note-row {
-      display: grid;
-      grid-template-columns: 82px 1fr;
-      gap: 12px;
-      padding: 8px 0;
-      border-bottom: 1px solid rgba(28,28,46,.12);
-      font-size: 15px;
-      font-weight: 900;
       color: var(--navy);
+      border-radius: 8px;
+      padding: 18px;
+      box-shadow: 10px 10px 0 rgba(245,200,66,.78);
+      transform: rotate(-2deg);
     }
-    .hero-note-row:last-child { border-bottom: none; }
-    .hero-note-row span {
-      font-size: 10px;
-      letter-spacing: .13em;
-      text-transform: uppercase;
+    .hero-action-note strong {
+      display: block;
+      font-family: var(--font-poster);
+      font-size: 34px;
+      line-height: .9;
       color: var(--red);
+      letter-spacing: .02em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
     }
-    .hero-badge {
-      content: 'Registration Open · Summer 2026';
+    .hero-action-note span {
+      display: block;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      line-height: 1.45;
+      text-transform: uppercase;
+    }
+    .hero-action-chip {
       position: absolute;
-      right: 20px;
-      bottom: 22px;
-      z-index: 2;
+      z-index: 3;
+      right: clamp(20px, 4vw, 54px);
+      bottom: clamp(22px, 4vw, 50px);
       background: var(--red);
       color: var(--white);
-      font-family: var(--font-poster);
-      font-size: clamp(24px, 2.4vw, 36px);
-      letter-spacing: .03em;
+      border-radius: 999px;
+      padding: 13px 18px;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .13em;
       text-transform: uppercase;
-      padding: 14px 20px;
-      border-radius: 50%;
-      box-shadow: 0 16px 30px rgba(28,28,46,.22);
-      transform: rotate(-7deg);
-      max-width: 190px;
-      text-align: center;
-      line-height: .9;
+      box-shadow: 0 12px 26px rgba(28,28,46,.28);
+      transform: rotate(3deg);
     }
-    .hero-doodle {
-      position: absolute;
-      color: var(--navy);
-      opacity: .86;
-      z-index: 1;
-    }
-    .hero-doodle-chef { top: 42px; right: 34px; width: 112px; height: 112px; transform: rotate(8deg); }
-    .hero-doodle-bus { right: 22px; bottom: 132px; width: 210px; height: 128px; color: var(--yellow); filter: drop-shadow(0 8px 0 rgba(28,28,46,.18)); }
-    .hero-doodle-challah { right: 130px; bottom: 74px; width: 132px; height: 86px; color: #1D6C24; transform: rotate(-7deg); }
-    .hero-doodle-star { left: 132px; top: 72px; width: 44px; height: 44px; color: var(--red); transform: rotate(18deg); }
 
     /* ─ STATS ────────────────────────────────────────────── */
     .stats { background: var(--navy); padding: 48px 0 82px; position: relative; z-index: 1; }
@@ -1039,11 +1025,10 @@
       .nav-logo { min-width: 0; gap: 8px; font-size: clamp(16px, 4.6vw, 20px); }
       .nav-logo-img { width: 38px; height: 38px; border-radius: 9px; flex: 0 0 auto; }
       .nav-logo-text { min-width: 0; line-height: 1; }
-      .hero { grid-template-columns: 1fr; min-height: auto; padding: 44px var(--px) 58px; }
-      .hero::before { inset: 12px; border-radius: 20px; }
-      .hero-left { max-width: 760px; }
-      .hero-right { max-width: 720px; width: 100%; min-height: 560px; margin: 0 auto; }
-      .hero-banner { min-height: 560px; }
+      .hero { grid-template-columns: 1fr; min-height: auto; padding: 0; }
+      .hero::before { display: none; }
+      .hero-left { max-width: 760px; padding: 48px var(--px) 38px; }
+      .hero-right { width: 100%; min-height: 520px; margin: 0; border-radius: 36px 36px 0 0; }
       .features { border-radius: 36px 36px 0 0; margin-top: -32px; padding-top: 72px; }
       .sessions { border-radius: 36px 36px 0 0; margin-top: -32px; padding-top: 72px; }
       .feat-grid { grid-template-columns: 1fr 1fr; }
@@ -1079,7 +1064,8 @@
       .nav-logo-img { width: 34px; height: 34px; border-radius: 8px; }
       .marquee { height: 36px; }
       .mq-track span { font-size: 9px; padding: 0 10px; letter-spacing: .16em; }
-      .hero { padding: 32px var(--px) 48px; gap: 24px; }
+      .hero { padding: 0; gap: 0; }
+      .hero-left { padding: 34px var(--px) 30px; }
       .hero-tag { max-width: 100%; margin-bottom: 22px; font-size: 9px; letter-spacing: .1em; white-space: normal; line-height: 1.25; }
       .hero-h1 { font-size: clamp(62px, 19vw, 84px); line-height: .78; margin-bottom: 18px; }
       .hero-h1 em { font-size: .56em; line-height: .88; margin-top: 6px; }
@@ -1088,19 +1074,14 @@
       .hero-fact { padding: 10px; font-size: 10px; letter-spacing: .06em; }
       .hero-fact strong { font-size: 21px; }
       .hero-btns { flex-direction: column; align-items: stretch; }
-      .hero-right { min-height: 520px; }
-      .hero-banner { min-height: 520px; border-width: 6px; box-shadow: 10px 10px 0 rgba(214,75,42,.2), 0 22px 42px rgba(28,28,46,.2); }
-      .hero-banner-logo { width: 70px; height: 70px; top: 18px; left: 18px; }
-      .hero-banner-copy { top: 106px; left: 20px; right: 20px; }
-      .hero-banner-kicker { font-size: 10px; }
-      .hero-banner-title { font-size: clamp(64px, 18vw, 84px); }
-      .hero-note { left: 20px; bottom: 22px; width: calc(100% - 40px); padding: 14px; }
-      .hero-note-row { grid-template-columns: 68px 1fr; gap: 8px; font-size: 13px; }
-      .hero-badge { display: none; }
-      .hero-doodle-chef { width: 82px; height: 82px; top: 16px; right: 18px; opacity: .72; }
-      .hero-doodle-bus { width: 150px; height: 92px; right: 12px; bottom: 154px; opacity: .9; }
-      .hero-doodle-challah { width: 96px; height: 62px; right: 138px; bottom: 148px; }
-      .hero-doodle-star { left: 96px; top: 44px; width: 34px; height: 34px; }
+      .hero-right { min-height: 430px; border-radius: 28px 28px 0 0; }
+      .hero-action-img { object-position: center; }
+      .hero-right::after { width: 260px; right: -100px; top: -90px; }
+      .hero-action-title { top: 22px; right: 18px; max-width: 240px; font-size: clamp(45px, 13vw, 58px); }
+      .hero-action-note { left: 18px; bottom: 22px; width: min(300px, calc(100% - 36px)); padding: 14px; }
+      .hero-action-note strong { font-size: 28px; }
+      .hero-action-note span { font-size: 11px; }
+      .hero-action-chip { display: none; }
       .stats { padding: 34px 0 58px; }
       .stat { padding: 16px 0; }
       .stat-n { font-size: 46px; }
@@ -1336,45 +1317,13 @@
     </div>
   </div>
   <div class="hero-right">
-    <div class="hero-banner" role="img" aria-label="Kosher Culinary Camp summer 2026 banner with dates, price, and camp details">
-      <img class="hero-banner-logo" src="uploads/kosher-culinary-camp-logo-nav.jpg" alt="">
-      <svg class="hero-doodle hero-doodle-chef" viewBox="0 0 58 58" fill="none" aria-hidden="true">
-        <path d="M29 7C19 7 11 15 11 23C11 28 13 31 16 34H42C45 31 47 28 47 23C47 15 39 7 29 7Z" fill="currentColor"/>
-        <rect x="14" y="36" width="30" height="9" rx="1.5" fill="currentColor"/>
-        <path d="M21 36V42M29 36V44M37 36V42" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
-      </svg>
-      <svg class="hero-doodle hero-doodle-star" viewBox="0 0 62 62" fill="none" aria-hidden="true">
-        <path d="M31 2 L34.2 27.8 L60 31 L34.2 34.2 L31 60 L27.8 34.2 L2 31 L27.8 27.8 Z" fill="currentColor"/>
-      </svg>
-      <div class="hero-banner-copy">
-        <div class="hero-banner-kicker">Cooking up the best summer ever</div>
-        <div class="hero-banner-title">Messy Aprons.<span>Big Smiles.</span>Best Friends.</div>
-      </div>
-      <svg class="hero-doodle hero-doodle-bus" viewBox="0 0 210 128" fill="none" aria-hidden="true">
-        <path d="M18 52H154C177 52 192 68 192 91V103H18V52Z" fill="currentColor"/>
-        <path d="M35 32H138C151 32 162 43 162 56H35V32Z" fill="currentColor"/>
-        <path d="M42 40H68V57H42V40ZM78 40H104V57H78V40ZM114 40H140V57H114V40Z" fill="#FFF8E8" opacity=".9"/>
-        <path d="M28 76H84" stroke="#1C1C2E" stroke-width="7" stroke-linecap="round"/>
-        <path d="M96 76H166" stroke="#1C1C2E" stroke-width="7" stroke-linecap="round"/>
-        <circle cx="58" cy="103" r="15" fill="#1C1C2E"/>
-        <circle cx="156" cy="103" r="15" fill="#1C1C2E"/>
-        <circle cx="58" cy="103" r="6" fill="#FFF8E8"/>
-        <circle cx="156" cy="103" r="6" fill="#FFF8E8"/>
-        <path d="M30 52C54 28 88 18 132 20" stroke="#D64B2A" stroke-width="8" stroke-linecap="round"/>
-      </svg>
-      <svg class="hero-doodle hero-doodle-challah" viewBox="0 0 64 46" fill="none" aria-hidden="true">
-        <ellipse cx="32" cy="30" rx="26" ry="12" fill="currentColor"/>
-        <path d="M10 30C12 20 20 15 32 15C44 15 52 20 54 30" fill="currentColor"/>
-        <path d="M17 25C19 19 25 16 32 17C39 18 45 21 47 25" stroke="#FFF8E8" stroke-width="3" stroke-linecap="round" opacity=".7"/>
-      </svg>
-      <div class="hero-note">
-        <div class="hero-note-row"><span>Session 1</span>Aug 3&#x2013;7</div>
-        <div class="hero-note-row"><span>Session 2</span>Aug 10&#x2013;14</div>
-        <div class="hero-note-row"><span>Ages</span>3&#x2013;12</div>
-        <div class="hero-note-row"><span>Tuition</span>$300 per week</div>
-      </div>
-      <div class="hero-badge">Registration Open</div>
+    <img class="hero-action-img" src="uploads/session-cooking.jpg" alt="Campers gathered around a hands-on cooking activity table">
+    <div class="hero-action-title">Messy Aprons.<span>Big Smiles.</span>Best Friends.</div>
+    <div class="hero-action-note">
+      <strong>This is summer done right.</strong>
+      <span>Hands-on cooking · challah Fridays · trips · sports · Jewish pride</span>
     </div>
+    <div class="hero-action-chip">Registration open</div>
   </div>
 </section>
 

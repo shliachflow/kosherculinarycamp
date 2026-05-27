@@ -862,74 +862,31 @@
 
     /* ─ LIVE SOCIAL FEED ─────────────────────────────────── */
     .social-feed { background: var(--white); padding: 96px 0; }
-    .social-feed-grid { display: grid; grid-template-columns: 1fr; gap: 34px; align-items: start; }
-    .social-feed-card {
+    .social-feed-grid { display: grid; grid-template-columns: .75fr 1.25fr; gap: 56px; align-items: center; }
+    .social-feed-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .photo-callout {
       background: var(--cream-dark);
       border: 2px solid var(--border);
       border-radius: 24px;
-      padding: 18px;
-      overflow: hidden;
-    }
-    .social-feed-embed { width: 100%; }
-    .social-feed-empty {
-      min-height: 320px;
-      display: flex;
-      flex-direction: column;
+      padding: clamp(26px, 4vw, 44px);
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 20px;
       align-items: center;
-      justify-content: center;
-      text-align: center;
-      gap: 18px;
-      padding: 34px;
-      border: 2px dashed var(--border);
-      border-radius: 18px;
-      background: var(--white);
     }
-    .social-feed-empty-icon {
-      width: 72px;
-      height: 72px;
+    .photo-callout-icon {
+      width: 76px;
+      height: 76px;
       display: grid;
       place-items: center;
       border-radius: 50%;
       background: var(--yellow);
       color: var(--navy);
-      font-size: 32px;
+      font-size: 34px;
+      box-shadow: 0 8px 0 rgba(28,28,46,.08);
     }
-    .social-feed-empty-text { color: var(--muted); font-size: 15px; line-height: 1.65; max-width: 420px; }
-    .social-feed-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
-    .album-preview-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
-    }
-    .album-preview-card {
-      position: relative;
-      min-height: 180px;
-      overflow: hidden;
-      border-radius: 18px;
-      background: var(--white);
-      border: 2px solid rgba(28,28,46,.08);
-    }
-    .album-preview-card:first-child { grid-column: span 2; grid-row: span 2; min-height: 372px; }
-    .album-preview-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 300ms ease; }
-    .album-preview-card:hover img { transform: scale(1.04); }
-    .album-preview-label {
-      position: absolute;
-      left: 10px;
-      right: 10px;
-      bottom: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      background: rgba(28,28,46,.82);
-      color: var(--white);
-      font-size: 10px;
-      font-weight: 900;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-    .album-preview-label span { color: var(--yellow); font-size: 9px; }
+    .photo-callout-title { font-family: var(--font-d); font-size: clamp(25px, 3vw, 38px); font-weight: 900; line-height: 1; letter-spacing: -.03em; }
+    .photo-callout-text { color: var(--muted); line-height: 1.6; margin-top: 8px; }
 
     /* ─ COMMUNITY PHOTOS (polaroids) ─────────────────────── */
     .polars { background: var(--navy); padding: 72px 0; overflow: hidden; }
@@ -1347,12 +1304,8 @@
       .gs { width: min(78vw, 288px); height: 318px; border-radius: 18px; }
       .gs img { border-radius: 18px; }
       .social-feed { padding: 64px 0; }
-      .social-feed-card { padding: 12px; }
-      .social-feed-empty,
-      .social-feed-embed { min-height: 0; }
-      .album-preview-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-      .album-preview-card { min-height: 142px; border-radius: 14px; }
-      .album-preview-card:first-child { min-height: 294px; }
+      .photo-callout { grid-template-columns: 1fr; text-align: left; }
+      .photo-callout .btn { width: 100%; }
       .trips, .faq, .register, .location { padding: 68px 0; }
       .float-cta { left: 14px; right: 14px; bottom: 14px; }
       .float-cta.btn { width: auto; text-align: center; box-shadow: 0 12px 24px rgba(28,28,46,.18); }
@@ -1968,10 +1921,13 @@
           <a href="https://www.facebook.com/jewishtroy/" class="btn btn-ghost social-facebook" target="_blank" rel="noopener">Facebook</a>
         </div>
       </div>
-      <div class="social-feed-card">
-        <div class="social-feed-embed" id="socialFeedEmbed">
-          <div class="album-preview-grid" id="albumPreviewGrid" aria-label="Camp photo album preview"></div>
+      <div class="photo-callout">
+        <div class="photo-callout-icon" aria-hidden="true">&#x1F4F8;</div>
+        <div>
+          <div class="photo-callout-title">Photo albums live here.</div>
+          <p class="photo-callout-text">During camp, new albums can be added for each day, trip, or special activity.</p>
         </div>
+        <a href="photos.html" class="btn btn-red">Open Albums &#x2192;</a>
       </div>
     </div>
   </div>
@@ -2367,50 +2323,6 @@
     window.addEventListener('resize', function() {
       if (window.innerWidth > 960) setOpen(false);
     });
-  })();
-
-  // ── CMS PHOTO ALBUM PREVIEW ─────────────────────────────────
-  (function() {
-    var grid = document.getElementById('albumPreviewGrid');
-    if (!grid) return;
-
-    function card(image, albumTitle, albumDate, index) {
-      var link = document.createElement('a');
-      link.href = 'photos.html';
-      link.className = 'album-preview-card';
-      var img = document.createElement('img');
-      img.src = image;
-      img.alt = albumTitle + ' camp photo';
-      img.loading = index === 0 ? 'eager' : 'lazy';
-      var label = document.createElement('div');
-      label.className = 'album-preview-label';
-      label.innerHTML = albumTitle + '<span>' + albumDate + '</span>';
-      link.appendChild(img);
-      link.appendChild(label);
-      return link;
-    }
-
-    fetch('content/gallery.json')
-      .then(function(res) { return res.json(); })
-      .then(function(data) {
-        var albums = (data.albums || []).filter(function(album) {
-          return album.show_on_homepage !== false && Array.isArray(album.images);
-        });
-        var photos = [];
-        albums.forEach(function(album) {
-          album.images.forEach(function(image) {
-            photos.push({ image: image, title: album.title || 'Camp Photos', date: album.date || '' });
-          });
-        });
-        photos.slice(0, 7).forEach(function(photo, index) {
-          grid.appendChild(card(photo.image, photo.title, photo.date, index));
-        });
-      })
-      .catch(function() {
-        ['uploads/session-cooking.jpg','uploads/gallery-02.jpg','uploads/gallery-03.jpg','uploads/gallery-05.jpg'].forEach(function(image, index) {
-          grid.appendChild(card(image, 'Camp Photos', 'Summer 2026', index));
-        });
-      });
   })();
 
   // ── SCROLL ANIMATIONS (only if user hasn't requested reduced motion) ──

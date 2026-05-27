@@ -825,6 +825,20 @@
     }
     .social-feed-empty-text { color: var(--muted); font-size: 15px; line-height: 1.65; max-width: 420px; }
     .social-feed-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .myalbum-link {
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      border-radius: 18px;
+      background: var(--white);
+      border: 2px dashed var(--border);
+    }
+    .myalbum-cover {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 17 / 10;
+      object-fit: cover;
+    }
 
     /* ─ COMMUNITY PHOTOS (polaroids) ─────────────────────── */
     .polars { background: var(--navy); padding: 72px 0; overflow: hidden; }
@@ -1242,6 +1256,9 @@
       .gs { width: min(78vw, 288px); height: 318px; border-radius: 18px; }
       .gs img { border-radius: 18px; }
       .social-feed { padding: 64px 0; }
+      .social-feed-card { padding: 12px; }
+      .social-feed-empty,
+      .social-feed-embed { min-height: 0; }
       .trips, .faq, .register, .location { padding: 68px 0; }
       .float-cta { left: 14px; right: 14px; bottom: 14px; }
       .float-cta.btn { width: auto; text-align: center; box-shadow: 0 12px 24px rgba(28,28,46,.18); }
@@ -1858,10 +1875,9 @@
       </div>
       <div class="social-feed-card">
         <div class="social-feed-embed" id="socialFeedEmbed">
-          <div class="social-feed-empty">
-            <div class="social-feed-empty-icon">📸</div>
-            <p class="social-feed-empty-text">The 2026 camp photo album will appear here once it is ready. Follow Chabad of Troy for updates, reminders, and registration news.</p>
-          </div>
+          <a class="myalbum-link" target="_blank" rel="noopener" href="https://myalbum.com/album/tDxQuxC32NCQgP/">
+            <img class="myalbum-cover" width="850" src="https://myalbum.com/album/tDxQuxC32NCQgP/cover?size=1000" border="0" alt="Kosher Culinary Camp photo album cover">
+          </a>
         </div>
       </div>
     </div>

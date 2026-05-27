@@ -37,6 +37,15 @@
         "uploads/camp-lunch-friends.jpg",
         "uploads/camp-group-table.jpg"
       ]
+    },
+    {
+      "title": "Chabad",
+      "date": "Day 2",
+      "description": "Testing",
+      "show_on_homepage": true,
+      "images": [
+        "uploads/pirkei-avot-6.png"
+      ]
     }
   ]
 }

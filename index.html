@@ -2176,6 +2176,93 @@
   }
   initFAQ();
 
+  // ── CMS BASIC SITE CONTENT ───────────────────────────────────
+  (function() {
+    function text(sel, value) {
+      if (value === undefined || value === null) return;
+      document.querySelectorAll(sel).forEach(function(el) { el.textContent = value; });
+    }
+    function html(sel, value) {
+      if (value === undefined || value === null) return;
+      document.querySelectorAll(sel).forEach(function(el) { el.innerHTML = value; });
+    }
+    function href(sel, value) {
+      if (!value) return;
+      document.querySelectorAll(sel).forEach(function(el) { el.href = value; });
+    }
+    function mail(sel, email) {
+      if (!email) return;
+      document.querySelectorAll(sel).forEach(function(el) { el.href = 'mailto:' + email; });
+    }
+    function esc(value) {
+      return String(value || '').replace(/[&<>"']/g, function(ch) {
+        return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[ch];
+      });
+    }
+    function fact(index, value, label) {
+      var el = document.querySelector('.hero-fact:nth-child(' + index + ')');
+      if (!el || value === undefined || label === undefined) return;
+      el.innerHTML = '<strong>' + esc(value) + '</strong>' + esc(label);
+    }
+    function renderFAQ(items) {
+      var list = document.getElementById('faqList');
+      if (!list || !Array.isArray(items)) return;
+      list.innerHTML = '';
+      items.forEach(function(item) {
+        if (!item.question || !item.answer) return;
+        var wrap = document.createElement('div');
+        wrap.className = 'faq-item';
+        wrap.innerHTML =
+          '<div class="faq-q" tabindex="0"><span class="faq-qt"></span><span class="faq-tog">+</span></div>' +
+          '<div class="faq-ans"><div class="faq-ans-in"></div></div>';
+        wrap.querySelector('.faq-qt').textContent = item.question;
+        wrap.querySelector('.faq-ans-in').textContent = item.answer;
+        list.appendChild(wrap);
+      });
+      initFAQ();
+    }
+
+    fetch('content/site.json')
+      .then(function(res) { return res.json(); })
+      .then(function(site) {
+        var hero = site.hero || {};
+        text('.hero-tag span', hero.eyebrow);
+        html('.hero-h1', '<span>' + esc(hero.headline_1 || 'Cook.') + '</span>' + esc(hero.headline_2 || 'Create.') + '<em>' + esc(hero.headline_3 || 'Explore.') + '</em>');
+        text('.hero-sub', hero.subtitle);
+        fact(1, hero.fact_1_value, hero.fact_1_label);
+        fact(2, hero.fact_2_value, hero.fact_2_label);
+        fact(3, hero.fact_3_value, hero.fact_3_label);
+        fact(4, hero.fact_4_value, hero.fact_4_label);
+
+        var sessions = site.sessions || {};
+        text('#s1 .session-dates > div:nth-child(1) .sd-val', sessions.session_one_start);
+        text('#s1 .session-dates > div:nth-child(2) .sd-val', sessions.session_one_end);
+        text('#s2 .session-dates > div:nth-child(1) .sd-val', sessions.session_two_start);
+        text('#s2 .session-dates > div:nth-child(2) .sd-val', sessions.session_two_end);
+        text('#s1 .price-row:first-child .price-amt, #s2 .price-row:first-child .price-amt, .pt-row:nth-child(2) .pt-price, .pt-row:nth-child(3) .pt-price', sessions.weekly_price);
+        text('#both .price-row:first-child .price-amt, .pt-row:nth-child(4) .pt-price', sessions.full_season_price);
+        text('#s1 .care-price, #s2 .care-price, #both .care-price', sessions.care_price);
+
+        var photos = site.photos || {};
+        text('.social-feed-label', photos.eyebrow);
+        html('.social-feed-headline', esc(photos.headline || 'Camp photos') + '<br><em>' + esc(photos.headline_emphasis || 'coming soon.') + '</em>');
+        text('.social-feed-body', photos.body);
+        text('.photo-callout-title', photos.callout_title);
+        text('.photo-callout-text', photos.callout_body);
+
+        var contact = site.contact || {};
+        href('.social-instagram, .ig-link, .footer-ig', contact.instagram);
+        href('.social-facebook, a[href*="facebook.com"]', contact.facebook);
+        mail('a[href^="mailto:"]', contact.email);
+        document.querySelectorAll('a[href^="mailto:"]').forEach(function(a) {
+          if (a.textContent.indexOf('@') !== -1) a.textContent = contact.email || a.textContent;
+        });
+
+        renderFAQ(site.faq);
+      })
+      .catch(function() {});
+  })();
+
   // ── STAT COUNTER ──────────────────────────────────────────────
   var done = false;
   function countUp(el, target) {

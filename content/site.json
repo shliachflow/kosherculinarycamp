@@ -1,0 +1,77 @@
+{
+  "hero": {
+    "eyebrow": "Chabad of Troy · Summer 2026",
+    "headline_1": "Cook.",
+    "headline_2": "Create.",
+    "headline_3": "Explore.",
+    "subtitle": "The ultimate Kosher Culinary Camp: hands-on cooking, baking and dessert workshops, almost daily trips, sports, Jewish pride, and the best summer energy for ages 3–12.",
+    "fact_1_value": "Aug 3–7",
+    "fact_1_label": "Session 1",
+    "fact_2_value": "Aug 10–14",
+    "fact_2_label": "Session 2",
+    "fact_3_value": "$300",
+    "fact_3_label": "Per child/week",
+    "fact_4_value": "Troy, MI",
+    "fact_4_label": "Chabad of Troy"
+  },
+  "sessions": {
+    "session_one_start": "Aug 3, 2026",
+    "session_one_end": "Aug 7, 2026",
+    "session_two_start": "Aug 10, 2026",
+    "session_two_end": "Aug 14, 2026",
+    "weekly_price": "$300",
+    "full_season_price": "$600",
+    "care_price": "+$75"
+  },
+  "photos": {
+    "eyebrow": "Latest From Camp",
+    "headline": "Camp photos",
+    "headline_emphasis": "coming soon.",
+    "body": "Once camp begins, this section will feature fresh moments from the kitchen, trips, activities, and all the smiles in between.",
+    "callout_title": "Photo albums live here.",
+    "callout_body": "During camp, new albums can be added for each day, trip, or special activity."
+  },
+  "contact": {
+    "email": "rabbi@jewishtroy.com",
+    "instagram": "https://www.instagram.com/jewishtroy/",
+    "facebook": "https://www.facebook.com/jewishtroy/"
+  },
+  "faq": [
+    {
+      "question": "What ages is camp for?",
+      "answer": "Kosher Culinary Camp welcomes kids ages 3–12. Activities and cooking stations are adapted by age so every camper can fully participate and succeed."
+    },
+    {
+      "question": "What are drop-off and pickup times?",
+      "answer": "Drop-off is between 9:30–9:45 AM. Pickup is at 3:30 PM. Please be on time for both — our kitchen schedule starts promptly. Optional Before & After Care is available from 9:00 AM and until 4:00 PM."
+    },
+    {
+      "question": "How does drop-off and pickup work?",
+      "answer": "Drop-off and pickup take place at 4050 Coolidge Hwy, Troy MI 48098. When you arrive, a staff member will greet your child at the car. At pickup, only individuals listed on your registration form are authorized to collect your camper — please have ID ready."
+    },
+    {
+      "question": "How do you get to field trips?",
+      "answer": "We travel by school bus. Campers board right at camp and return before pickup time. All trips are supervised by staff. No separate transportation is needed from families — just drop off at camp as usual."
+    },
+    {
+      "question": "Will there be security on site?",
+      "answer": "Yes. Kosher Culinary Camp will have security guard presence on site during camp hours, along with staff-supervised drop-off, pickup, and activities."
+    },
+    {
+      "question": "Is transportation to camp provided?",
+      "answer": "Transportation to and from camp is not included. Families are responsible for drop-off and pickup at 4050 Coolidge Hwy, Troy MI 48098. After registration, reach out and we’ll help connect you with nearby families for carpools."
+    },
+    {
+      "question": "What should my child bring?",
+      "answer": "Comfortable clothes they don’t mind getting messy (aprons are provided), a water bottle, any allergy medications, and a good appetite. We take care of everything else."
+    },
+    {
+      "question": "My child has food allergies — is camp safe?",
+      "answer": "We take allergies seriously. Note all allergies during registration. Our staff reviews every camper’s needs and accommodates where possible. For severe allergies, we’ll speak with you directly before camp begins."
+    },
+    {
+      "question": "Are scholarships available?",
+      "answer": "We believe every Jewish child deserves this experience. Limited scholarship assistance is available on a first-come, first-served basis. Contact us before registering to apply."
+    }
+  ]
+}

@@ -3,25 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kosher Culinary Camp Photo Album — Chabad of Troy</title>
-  <meta name="description" content="View the Kosher Culinary Camp photo album from Chabad of Troy. Camp photos, kitchen moments, trips, activities, and summer memories.">
+  <title>Kosher Culinary Camp Photo Albums — Chabad of Troy</title>
+  <meta name="description" content="View Kosher Culinary Camp photo albums from Chabad of Troy. Camp photos, kitchen moments, trips, activities, and summer memories.">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="https://camp.jewishtroy.com/photos.html">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Kosher Culinary Camp Photo Album">
-  <meta property="og:description" content="View the Kosher Culinary Camp photo album from Chabad of Troy.">
-  <meta property="og:image" content="https://myalbum.com/album/tDxQuxC32NCQgP/cover?size=1000">
+  <meta property="og:title" content="Kosher Culinary Camp Photo Albums">
+  <meta property="og:description" content="View Kosher Culinary Camp photo albums from Chabad of Troy.">
+  <meta property="og:image" content="https://camp.jewishtroy.com/uploads/hero-camp.jpg">
   <meta property="og:url" content="https://camp.jewishtroy.com/photos.html">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Kosher Culinary Camp Photo Album">
-  <meta name="twitter:description" content="View the Kosher Culinary Camp photo album from Chabad of Troy.">
-  <meta name="twitter:image" content="https://myalbum.com/album/tDxQuxC32NCQgP/cover?size=1000">
-  <link rel="preconnect" href="https://myalbum.com">
+  <meta name="twitter:title" content="Kosher Culinary Camp Photo Albums">
+  <meta name="twitter:description" content="View Kosher Culinary Camp photo albums from Chabad of Troy.">
+  <meta name="twitter:image" content="https://camp.jewishtroy.com/uploads/hero-camp.jpg">
   <style>
     * { box-sizing: border-box; }
-    html, body { margin: 0; min-height: 100%; background: #FFF5E8; color: #1C1C2E; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-    body { display: flex; flex-direction: column; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: #FFF5E8; color: #1C1C2E; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
     .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
       min-height: 62px;
       display: flex;
       align-items: center;
@@ -31,7 +35,7 @@
       background: #1C1C2E;
       color: #fff;
     }
-    .brand { font-weight: 900; color: #fff; text-decoration: none; letter-spacing: -.02em; }
+    .brand { font-weight: 900; color: #fff; letter-spacing: -.02em; }
     .brand em { color: #F5C842; font-style: normal; }
     .back {
       flex: 0 0 auto;
@@ -47,44 +51,68 @@
       font-weight: 900;
       letter-spacing: .08em;
       text-transform: uppercase;
-      text-decoration: none;
     }
-    .album-shell { flex: 1; padding: clamp(12px, 2.5vw, 24px); }
-    #myalbumEmbed {
-      min-height: calc(100vh - 110px);
-      border-radius: 22px;
-      overflow: auto;
-      background: #fff;
-      border: 2px solid #E8DDD0;
-    }
-    .fallback {
+    .page { max-width: 1320px; margin: 0 auto; padding: clamp(26px, 5vw, 68px) clamp(16px, 4vw, 42px) 80px; }
+    .intro { display: grid; grid-template-columns: .8fr 1.2fr; gap: 42px; align-items: end; margin-bottom: 34px; }
+    .eyebrow { color: #D64B2A; font-size: 12px; font-weight: 900; letter-spacing: .18em; text-transform: uppercase; margin: 0 0 12px; }
+    h1 { margin: 0; font-size: clamp(42px, 7vw, 86px); line-height: .9; letter-spacing: -.04em; }
+    .intro p { color: #6B6470; font-size: clamp(17px, 2vw, 22px); line-height: 1.6; margin: 0; max-width: 700px; }
+    .album-nav { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 34px; }
+    .album-nav a { display: inline-flex; padding: 10px 16px; border-radius: 999px; background: #fff; border: 2px solid #E8DDD0; font-size: 12px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+    .album { margin-top: 42px; }
+    .album-head { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 18px; }
+    .album h2 { margin: 0; font-size: clamp(28px, 4vw, 48px); line-height: 1; letter-spacing: -.03em; }
+    .album-meta { color: #D64B2A; font-size: 12px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+    .album-desc { color: #6B6470; line-height: 1.6; max-width: 760px; margin: -6px 0 22px; }
+    .photo-grid { columns: 4 220px; column-gap: 14px; }
+    .photo {
+      break-inside: avoid;
+      margin: 0 0 14px;
       display: block;
       width: 100%;
-      max-width: 960px;
-      margin: 0 auto;
+      padding: 0;
       overflow: hidden;
       border-radius: 18px;
       background: #fff;
+      border: 2px solid #E8DDD0;
+      cursor: zoom-in;
     }
-    .fallback img { display: block; width: 100%; height: auto; }
-    .fallback-wrap {
-      display: flex;
-      flex-direction: column;
+    .photo img { width: 100%; height: auto; transition: transform 250ms ease; }
+    .photo:hover img { transform: scale(1.025); }
+    .empty { padding: 42px; border: 2px dashed #E8DDD0; border-radius: 22px; background: #fff; color: #6B6470; text-align: center; }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
       align-items: center;
       justify-content: center;
-      min-height: calc(100vh - 110px);
-      gap: 18px;
       padding: 24px;
-      text-align: center;
-      color: #6B6470;
+      background: rgba(28,28,46,.9);
     }
-    .fallback-wrap p { max-width: 620px; margin: 0; line-height: 1.6; }
-    @media (max-width: 640px) {
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: min(1100px, 96vw); max-height: 86vh; border-radius: 18px; box-shadow: 0 24px 80px rgba(0,0,0,.4); }
+    .lightbox button {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      width: 44px;
+      height: 44px;
+      border: 0;
+      border-radius: 999px;
+      background: #F5C842;
+      color: #1C1C2E;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    @media (max-width: 760px) {
       .topbar { min-height: 56px; padding: 9px 12px; }
       .brand { font-size: 15px; }
       .back { min-height: 36px; padding: 8px 12px; font-size: 11px; }
-      .album-shell { padding: 10px; }
-      #myalbumEmbed { min-height: calc(100vh - 76px); border-radius: 16px; }
+      .intro { grid-template-columns: 1fr; gap: 18px; }
+      .album-head { align-items: start; flex-direction: column; }
+      .photo-grid { columns: 2 150px; column-gap: 10px; }
+      .photo { margin-bottom: 10px; border-radius: 14px; }
     }
   </style>
 </head>
@@ -93,37 +121,94 @@
     <a class="brand" href="index.html"><em>Kosher</em> Culinary Camp</a>
     <a class="back" href="index.html">Back to Site</a>
   </header>
-  <main class="album-shell">
-    <div id="myalbumEmbed" aria-label="Kosher Culinary Camp photo album"></div>
-    <noscript>
-      <a class="fallback" target="_blank" rel="noopener" href="https://myalbum.com/album/tDxQuxC32NCQgP/">
-        <img width="1000" src="https://myalbum.com/album/tDxQuxC32NCQgP/cover?size=1000" alt="Kosher Culinary Camp photo album cover">
-      </a>
-    </noscript>
+  <main class="page">
+    <section class="intro">
+      <div>
+        <p class="eyebrow">Camp Photos</p>
+        <h1>Summer Albums</h1>
+      </div>
+      <p>Browse camp moments by album. New days can be added through the CMS as camp happens.</p>
+    </section>
+    <nav class="album-nav" id="albumNav" aria-label="Photo albums"></nav>
+    <div id="albums"></div>
   </main>
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button type="button" id="lightboxClose" aria-label="Close photo">&times;</button>
+    <img id="lightboxImg" src="" alt="">
+  </div>
   <script>
-    var albumKey = 'tDxQuxC32NCQgP';
-    var holderId = 'myalbumEmbed';
-    var holder = document.getElementById(holderId);
+    var albumsEl = document.getElementById('albums');
+    var navEl = document.getElementById('albumNav');
+    var lightbox = document.getElementById('lightbox');
+    var lightboxImg = document.getElementById('lightboxImg');
+    var lightboxClose = document.getElementById('lightboxClose');
 
-    function showAlbumFallback() {
-      holder.innerHTML = '<div class="fallback-wrap"><a class="fallback" target="_blank" rel="noopener" href="https://myalbum.com/album/tDxQuxC32NCQgP/"><img width="1000" src="https://myalbum.com/album/tDxQuxC32NCQgP/cover?size=1000" alt="Kosher Culinary Camp photo album cover"></a><p>The full album is hosted on MyAlbum. Open it to view all camp photos.</p></div>';
+    function slug(text) {
+      return String(text || 'album').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
     }
 
-    function initMyAlbum() {
-      if (!window.myalbum || !window.myalbum.album) return;
-      var album = new window.myalbum.album.Create(holderId);
-      album.load(albumKey);
+    function openPhoto(src, alt) {
+      lightboxImg.src = src;
+      lightboxImg.alt = alt;
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
     }
 
-    var script = document.createElement('script');
-    script.src = 'https://myalbum.com/res/package/js/api-album.js?hl=en';
-    script.async = true;
-    script.onerror = showAlbumFallback;
-    document.body.appendChild(script);
-    window.setTimeout(function() {
-      if (holder.children.length === 0) showAlbumFallback();
-    }, 3500);
+    function closePhoto() {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      lightboxImg.src = '';
+    }
+
+    function renderAlbum(album, index) {
+      var id = slug(album.title) || ('album-' + index);
+      var section = document.createElement('section');
+      section.className = 'album';
+      section.id = id;
+      section.innerHTML =
+        '<div class="album-head"><h2>' + (album.title || 'Camp Album') + '</h2><div class="album-meta">' + (album.date || '') + '</div></div>' +
+        (album.description ? '<p class="album-desc">' + album.description + '</p>' : '') +
+        '<div class="photo-grid"></div>';
+
+      var grid = section.querySelector('.photo-grid');
+      (album.images || []).forEach(function(src, photoIndex) {
+        var link = document.createElement('button');
+        link.type = 'button';
+        link.className = 'photo';
+        link.setAttribute('aria-label', 'Open photo from ' + (album.title || 'camp album'));
+        var img = document.createElement('img');
+        img.src = src;
+        img.alt = (album.title || 'Camp') + ' photo ' + (photoIndex + 1);
+        img.loading = photoIndex < 2 && index === 0 ? 'eager' : 'lazy';
+        link.appendChild(img);
+        link.addEventListener('click', function() { openPhoto(src, img.alt); });
+        grid.appendChild(link);
+      });
+
+      var nav = document.createElement('a');
+      nav.href = '#' + id;
+      nav.textContent = album.title || ('Album ' + (index + 1));
+      navEl.appendChild(nav);
+      albumsEl.appendChild(section);
+    }
+
+    fetch('content/gallery.json')
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        var albums = data.albums || [];
+        if (!albums.length) {
+          albumsEl.innerHTML = '<div class="empty">No photo albums have been added yet.</div>';
+          return;
+        }
+        albums.forEach(renderAlbum);
+      })
+      .catch(function() {
+        albumsEl.innerHTML = '<div class="empty">Photo albums could not load right now.</div>';
+      });
+
+    lightboxClose.addEventListener('click', closePhoto);
+    lightbox.addEventListener('click', function(e) { if (e.target === lightbox) closePhoto(); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closePhoto(); });
   </script>
 </body>
 </html>

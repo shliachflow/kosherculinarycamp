@@ -1,0 +1,57 @@
+media:
+  - name: uploads
+    label: Uploaded Images
+    input: uploads
+    output: uploads
+    extensions: [jpg, jpeg, png, webp]
+    categories: [image]
+    rename: safe
+
+content:
+  - name: gallery
+    label: Photo Albums
+    type: file
+    path: content/gallery.json
+    format: json
+    fields:
+      - name: albums
+        label: Albums
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: title
+            label: Album Title
+            type: string
+          - name: date
+            label: Date or Day
+            type: string
+            default: Day 1
+          - name: description
+            label: Album Description
+            type: text
+          - name: show_on_homepage
+            label: Feature on homepage
+            type: boolean
+            default: true
+          - name: images
+            label: Album Photos
+            type: image
+            options:
+              media: uploads
+              path: uploads
+              multiple: true
+              unique: true
+              extensions: [jpg, jpeg, png, webp]
+
+settings:
+  content:
+    merge: true
+  commit:
+    templates:
+      create: "cms: create {path}"
+      update: "cms: update {path}"
+      delete: "cms: delete {path}"
+      rename: "cms: rename {oldPath} to {newPath}"

@@ -862,16 +862,16 @@
 
     /* ─ LIVE SOCIAL FEED ─────────────────────────────────── */
     .social-feed { background: var(--white); padding: 96px 0; }
-    .social-feed-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 56px; align-items: start; }
+    .social-feed-grid { display: grid; grid-template-columns: 1fr; gap: 34px; align-items: start; }
     .social-feed-card {
       background: var(--cream-dark);
       border: 2px solid var(--border);
       border-radius: 24px;
-      min-height: 360px;
+      min-height: 620px;
       padding: 18px;
       overflow: hidden;
     }
-    .social-feed-embed { width: 100%; min-height: 320px; }
+    .social-feed-embed { width: 100%; min-height: 580px; }
     .social-feed-embed iframe { max-width: 100%; width: 100%; border: 0; border-radius: 16px; }
     .social-feed-empty {
       min-height: 320px;
@@ -898,13 +898,22 @@
     }
     .social-feed-empty-text { color: var(--muted); font-size: 15px; line-height: 1.65; max-width: 420px; }
     .social-feed-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .myalbum-embed {
+      width: 100%;
+      min-height: 580px;
+      overflow: auto;
+      border-radius: 18px;
+      background: var(--white);
+      border: 2px dashed var(--border);
+    }
+    .myalbum-embed iframe,
+    .myalbum-embed > div { max-width: 100%; }
     .myalbum-link {
       display: block;
       width: 100%;
       overflow: hidden;
       border-radius: 18px;
       background: var(--white);
-      border: 2px dashed var(--border);
     }
     .myalbum-cover {
       width: 100%;
@@ -1332,6 +1341,9 @@
       .social-feed-card { padding: 12px; }
       .social-feed-empty,
       .social-feed-embed { min-height: 0; }
+      .social-feed-card { min-height: 520px; }
+      .social-feed-embed,
+      .myalbum-embed { min-height: 500px; }
       .trips, .faq, .register, .location { padding: 68px 0; }
       .float-cta { left: 14px; right: 14px; bottom: 14px; }
       .float-cta.btn { width: auto; text-align: center; box-shadow: 0 12px 24px rgba(28,28,46,.18); }
@@ -1493,7 +1505,7 @@
     </button>
     <div class="nav-links" id="navLinks">
       <a href="#about">About</a>
-      <a href="#gallery">Photos</a>
+      <a href="photos.html">Photos</a>
       <a href="#sessions">Sessions</a>
       <a href="#location">Location</a>
       <a href="#faq">FAQ</a>
@@ -1942,15 +1954,19 @@
         <h2 class="sec-h social-feed-headline">Camp photos<br><em>coming soon.</em></h2>
         <p class="sec-body social-feed-body">Once camp begins, this section will feature fresh moments from the kitchen, trips, activities, and all the smiles in between.</p>
         <div class="social-feed-actions">
+          <a href="photos.html" class="btn btn-red">View Full Album</a>
           <a href="https://www.instagram.com/jewishtroy/" class="btn btn-red social-instagram" target="_blank" rel="noopener">Instagram</a>
           <a href="https://www.facebook.com/jewishtroy/" class="btn btn-ghost social-facebook" target="_blank" rel="noopener">Facebook</a>
         </div>
       </div>
       <div class="social-feed-card">
         <div class="social-feed-embed" id="socialFeedEmbed">
-          <a class="myalbum-link" target="_blank" rel="noopener" href="https://myalbum.com/album/tDxQuxC32NCQgP/">
-            <img class="myalbum-cover" width="850" src="https://myalbum.com/album/tDxQuxC32NCQgP/cover?size=1000" border="0" alt="Kosher Culinary Camp photo album cover">
-          </a>
+          <div class="myalbum-embed" id="myalbumEmbed" aria-label="Kosher Culinary Camp photo album"></div>
+          <noscript>
+            <a class="myalbum-link" target="_blank" rel="noopener" href="https://myalbum.com/album/tDxQuxC32NCQgP/">
+              <img class="myalbum-cover" width="850" src="https://myalbum.com/album/tDxQuxC32NCQgP/cover?size=1000" border="0" alt="Kosher Culinary Camp photo album cover">
+            </a>
+          </noscript>
         </div>
       </div>
     </div>
@@ -2155,6 +2171,7 @@
           <a href="#about">About</a>
           <a href="#sessions">Sessions &amp; Pricing</a>
           <a href="#gallery">Gallery</a>
+          <a href="photos.html">Photo Album</a>
           <a href="#faq">FAQ</a>
         </div>
       </div>
@@ -2346,6 +2363,26 @@
     window.addEventListener('resize', function() {
       if (window.innerWidth > 960) setOpen(false);
     });
+  })();
+
+  // ── MYALBUM FULL ALBUM EMBED ─────────────────────────────────
+  (function() {
+    var holder = document.getElementById('myalbumEmbed');
+    if (!holder) return;
+
+    window.initMyAlbum = function() {
+      if (!window.myalbum || !window.myalbum.album) return;
+      var album = new window.myalbum.album.Create('myalbumEmbed');
+      album.load('tDxQuxC32NCQgP');
+    };
+
+    var script = document.createElement('script');
+    script.src = 'https://myalbum.com/res/package/js/api-album.js?hl=en';
+    script.async = true;
+    script.onerror = function() {
+      holder.innerHTML = '<a class="myalbum-link" target="_blank" rel="noopener" href="https://myalbum.com/album/tDxQuxC32NCQgP/"><img class="myalbum-cover" width="850" src="https://myalbum.com/album/tDxQuxC32NCQgP/cover?size=1000" border="0" alt="Kosher Culinary Camp photo album cover"></a>';
+    };
+    document.body.appendChild(script);
   })();
 
   // ── SCROLL ANIMATIONS (only if user hasn't requested reduced motion) ──

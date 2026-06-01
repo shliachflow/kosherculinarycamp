@@ -57,6 +57,7 @@ content:
         type: object
         fields:
           - { name: email, label: Contact Email, type: string }
+          - { name: feedback_form, label: Contact Form URL, type: string }
           - { name: instagram, label: Instagram URL, type: string }
           - { name: facebook, label: Facebook URL, type: string }
       - name: faq
@@ -113,7 +114,7 @@ settings:
     merge: true
   commit:
     templates:
-      create: "cms: create {path}"
-      update: "cms: update {path}"
-      delete: "cms: delete {path}"
-      rename: "cms: rename {oldPath} to {newPath}"
+      create: "content: create {path}"
+      update: "content: update {path}"
+      delete: "content: delete {path}"
+      rename: "content: rename {oldPath} to {newPath}"

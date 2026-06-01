@@ -26,13 +26,14 @@
   "photos": {
     "eyebrow": "Latest From Camp",
     "headline": "Camp photos",
-    "headline_emphasis": "coming soon.",
-    "body": "Once camp begins, this section will feature fresh moments from the kitchen, trips, activities, and all the smiles in between.",
+    "headline_emphasis": "all summer.",
+    "body": "Browse highlights from the kitchen, trips, activities, and all the smiles in between.",
     "callout_title": "Photo albums live here.",
-    "callout_body": "During camp, new albums can be added for each day, trip, or special activity."
+    "callout_body": "Browse daily albums, trip highlights, kitchen moments, and camp memories."
   },
   "contact": {
     "email": "rabbi@jewishtroy.com",
+    "feedback_form": "https://www.jewishtroy.com/tools/feedback.htm",
     "instagram": "https://www.instagram.com/jewishtroy/",
     "facebook": "https://www.facebook.com/jewishtroy/"
   },

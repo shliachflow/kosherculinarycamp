@@ -280,6 +280,7 @@
       border-radius: 100px;
     }
     .nav-reg:hover { background: var(--orange); opacity: 1; }
+    .nav-scholarship { color: var(--yellow) !important; }
     .nav-menu-btn {
       display: none;
       width: 42px;
@@ -394,6 +395,23 @@
       transform: rotate(-1deg);
     }
     .hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+    .hero-scholarship-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+      color: var(--navy);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.4;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-scholarship-note a {
+      color: var(--red-dark);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
     .hero-btn-reg { background: var(--red); color: var(--white); }
     .hero-btn-reg:hover { background: var(--orange); }
     .hero-btn-outline { background: transparent; color: var(--navy); border: 2px solid var(--navy); }
@@ -1471,6 +1489,7 @@
       <a href="#sessions">Sessions</a>
       <a href="#location">Location</a>
       <a href="#faq">FAQ</a>
+      <a href="scholarship/" class="nav-scholarship">Scholarship</a>
       <a href="register.html" class="tally-link nav-reg">Register Now</a>
     </div>
   </div>
@@ -1524,6 +1543,7 @@
       <a href="register.html" class="tally-link btn btn-red hero-btn-reg">Register Now &#x2192;</a>
       <a href="#sessions" class="btn hero-btn-outline">View Sessions</a>
     </div>
+    <p class="hero-scholarship-note">Scholarship assistance may be available. <a href="scholarship/">Apply before registering.</a></p>
   </div>
   <div class="hero-right">
     <img class="hero-action-img" src="uploads/hero-boys-action.jpg" alt="Boys laughing and cooking together in a bright kosher kitchen camp setting">
